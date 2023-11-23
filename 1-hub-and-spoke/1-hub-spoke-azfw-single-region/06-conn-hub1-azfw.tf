@@ -9,7 +9,7 @@
 # spoke1-to-hub1
 
 resource "azurerm_virtual_network_peering" "spoke1_to_hub1_peering" {
-  resource_group_name          = azurerm_resource_group.rg.name
+  resource_group_name          = azurerm_resource_group.rgspoke1.name
   name                         = "${local.prefix}-spoke1-to-hub1-peering"
   virtual_network_name         = module.spoke1.vnet.name
   remote_virtual_network_id    = module.hub1.vnet.id
@@ -43,7 +43,7 @@ resource "azurerm_virtual_network_peering" "hub1_to_spoke1_peering" {
 
 module "spoke1_udr_main" {
   source                        = "../../modules/udr"
-  resource_group                = azurerm_resource_group.rg.name
+  resource_group                = azurerm_resource_group.rgspoke1.name
   prefix                        = "${local.spoke1_prefix}main"
   location                      = local.spoke1_location
   subnet_id                     = module.spoke1.subnets["MainSubnet"].id
@@ -70,7 +70,7 @@ module "spoke1_udr_main" {
 # spoke2-to-hub1
 
 resource "azurerm_virtual_network_peering" "spoke2_to_hub1_peering" {
-  resource_group_name          = azurerm_resource_group.rg.name
+  resource_group_name          = azurerm_resource_group.rgspoke2.name
   name                         = "${local.prefix}-spoke2-to-hub1-peering"
   virtual_network_name         = module.spoke2.vnet.name
   remote_virtual_network_id    = module.hub1.vnet.id
@@ -104,7 +104,7 @@ resource "azurerm_virtual_network_peering" "hub1_to_spoke2_peering" {
 
 module "spoke2_udr_main" {
   source                        = "../../modules/udr"
-  resource_group                = azurerm_resource_group.rg.name
+  resource_group                = azurerm_resource_group.rgspoke2.name
   prefix                        = "${local.spoke2_prefix}main"
   location                      = local.spoke2_location
   subnet_id                     = module.spoke2.subnets["MainSubnet"].id

@@ -5,8 +5,8 @@
 locals {
   region1  = "westeurope"
   region2  = "northeurope"
-  username = "azureuser"
-  password = "Password123"
+  username = "demouser"
+  password = "demo!pass123"
   vmsize   = "Standard_DS1_v2"
   psk      = "changeme"
 
@@ -21,8 +21,8 @@ locals {
 
   default_region = "westeurope"
 
-  onprem_domain = "corp"
-  cloud_domain  = "az.corp"
+  onprem_domain = "azutalors.local"
+  cloud_domain  = "azutalors.com"
   azuredns      = "168.63.129.16"
   private_prefixes = [
     "10.0.0.0/8",
@@ -253,16 +253,16 @@ locals {
 locals {
   spoke1_prefix        = local.prefix == "" ? "spoke1-" : join("-", [local.prefix, "spoke1-"])
   spoke1_location      = local.region1
-  spoke1_address_space = ["10.1.0.0/16"]
+  spoke1_address_space = ["10.5.0.0/16"]
   spoke1_dns_zone      = "spoke1.${local.cloud_domain}"
   spoke1_tags          = { "nodeType" = "spoke" }
   spoke1_subnets = {
-    ("MainSubnet")               = { address_prefixes = ["10.1.0.0/24"] }
-    ("AppGatewaySubnet")         = { address_prefixes = ["10.1.1.0/24"] }
-    ("LoadBalancerSubnet")       = { address_prefixes = ["10.1.2.0/24"] }
-    ("PrivateLinkServiceSubnet") = { address_prefixes = ["10.1.3.0/24"] }
-    ("PrivateEndpointSubnet")    = { address_prefixes = ["10.1.4.0/24"] }
-    ("AppServiceSubnet")         = { address_prefixes = ["10.1.5.0/24"], delegate = ["Microsoft.Web/serverFarms"] }
+    ("MainSubnet")               = { address_prefixes = ["10.5.0.0/24"] }
+    ("AppGatewaySubnet")         = { address_prefixes = ["10.5.1.0/24"] }
+    ("LoadBalancerSubnet")       = { address_prefixes = ["10.5.2.0/24"] }
+    ("PrivateLinkServiceSubnet") = { address_prefixes = ["10.5.3.0/24"] }
+    ("PrivateEndpointSubnet")    = { address_prefixes = ["10.5.4.0/24"] }
+    ("AppServiceSubnet")         = { address_prefixes = ["10.5.5.0/24"], delegate = ["Microsoft.Web/serverFarms"] }
   }
   spoke1_vm_addr     = cidrhost(local.spoke1_subnets["MainSubnet"].address_prefixes[0], 5)
   spoke1_ilb_addr    = cidrhost(local.spoke1_subnets["LoadBalancerSubnet"].address_prefixes[0], 99)

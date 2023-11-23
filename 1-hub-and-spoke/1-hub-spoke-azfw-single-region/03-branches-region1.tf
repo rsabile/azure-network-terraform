@@ -8,7 +8,7 @@
 
 module "branch1" {
   source          = "../../modules/base"
-  resource_group  = azurerm_resource_group.rg.name
+  resource_group  = azurerm_resource_group.rgonprem.name
   prefix          = trimsuffix(local.branch1_prefix, "-")
   location        = local.branch1_location
   storage_account = module.common.storage_accounts["region1"]
@@ -40,7 +40,7 @@ module "branch1" {
 
 module "branch1_dns" {
   source           = "../../modules/linux"
-  resource_group   = azurerm_resource_group.rg.name
+  resource_group   = azurerm_resource_group.rgonprem.name
   prefix           = local.branch1_prefix
   name             = "dns"
   location         = local.branch1_location
@@ -196,7 +196,7 @@ locals {
 
 module "branch1_nva" {
   source               = "../../modules/csr-branch"
-  resource_group       = azurerm_resource_group.rg.name
+  resource_group       = azurerm_resource_group.rgonprem.name
   name                 = "${local.branch1_prefix}nva"
   location             = local.branch1_location
   enable_ip_forwarding = true
@@ -218,7 +218,7 @@ module "branch1_nva" {
 
 module "branch1_vm" {
   source           = "../../modules/linux"
-  resource_group   = azurerm_resource_group.rg.name
+  resource_group   = azurerm_resource_group.rgonprem.name
   prefix           = local.branch1_prefix
   name             = "vm"
   location         = local.branch1_location
@@ -246,7 +246,7 @@ module "branch1_vm" {
 
 module "branch1_udr_main" {
   source                        = "../../modules/udr"
-  resource_group                = azurerm_resource_group.rg.name
+  resource_group                = azurerm_resource_group.rgonprem.name
   prefix                        = "${local.branch1_prefix}main"
   location                      = local.branch1_location
   subnet_id                     = module.branch1.subnets["MainSubnet"].id

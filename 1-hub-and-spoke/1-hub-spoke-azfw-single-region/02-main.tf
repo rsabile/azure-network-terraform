@@ -3,7 +3,7 @@
 ####################################################
 
 locals {
-  prefix = "Hs11"
+  prefix = "rsa"
   #my_public_ip = chomp(data.http.my_public_ip.response_body)
 }
 
@@ -102,10 +102,29 @@ locals {
 # resource group
 
 resource "azurerm_resource_group" "rg" {
-  name     = "${local.prefix}RG"
+  name     = "rg-hub-westeurope-001"
   location = local.default_region
 }
 
+resource "azurerm_resource_group" "rgspoke1" {
+  name     = "rg-spoke1-westeurope-001"
+  location = local.default_region
+}
+
+resource "azurerm_resource_group" "rgspoke2" {
+  name     = "rg-spoke2-westeurope-001"
+  location = local.default_region
+}
+
+resource "azurerm_resource_group" "rgspoke3" {
+  name     = "rg-spoke3-westeurope-001"
+  location = local.default_region
+}
+
+resource "azurerm_resource_group" "rgonprem" {
+  name     = "rg-onpremise-westeurope-001"
+  location = local.default_region
+}
 # my public ip
 
 /* data "http" "my_public_ip" {

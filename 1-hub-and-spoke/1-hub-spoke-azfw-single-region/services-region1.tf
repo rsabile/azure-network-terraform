@@ -14,7 +14,7 @@ resource "random_id" "services_region1" {
 
 module "spoke3_lb" {
   source                                 = "../../modules/azlb"
-  resource_group_name                    = azurerm_resource_group.rg.name
+  resource_group_name                    = azurerm_resource_group.rgspoke3.name
   location                               = local.spoke3_location
   prefix                                 = trimsuffix(local.spoke3_prefix, "-")
   type                                   = "private"
@@ -43,7 +43,7 @@ module "spoke3_lb" {
 
 module "spoke3_pls" {
   source           = "../../modules/privatelink"
-  resource_group   = azurerm_resource_group.rg.name
+  resource_group   = azurerm_resource_group.rgspoke3.name
   location         = local.spoke3_location
   prefix           = trimsuffix(local.spoke3_prefix, "-")
   private_dns_zone = module.spoke3.private_dns_zone.name
@@ -117,7 +117,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "hub1_privatelink_vnet_
 
 module "spoke3_apps" {
   source            = "../../modules/app-service"
-  resource_group    = azurerm_resource_group.rg.name
+  resource_group    = azurerm_resource_group.rgspoke3.name
   location          = local.spoke3_location
   prefix            = lower(local.spoke3_prefix)
   name              = random_id.services_region1.hex

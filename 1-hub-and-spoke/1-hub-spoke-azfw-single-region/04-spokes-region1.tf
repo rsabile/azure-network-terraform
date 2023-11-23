@@ -7,7 +7,7 @@
 
 module "spoke1" {
   source          = "../../modules/base"
-  resource_group  = azurerm_resource_group.rg.name
+  resource_group  = azurerm_resource_group.rgspoke1.name
   prefix          = trimsuffix(local.spoke1_prefix, "-")
   env             = "prod"
   location        = local.spoke1_location
@@ -45,7 +45,7 @@ module "spoke1" {
 
 module "spoke1_vm" {
   source                = "../../modules/linux"
-  resource_group        = azurerm_resource_group.rg.name
+  resource_group        = azurerm_resource_group.rgspoke1.name
   prefix                = local.spoke1_prefix
   name                  = "vm"
   location              = local.spoke1_location
@@ -67,7 +67,7 @@ module "spoke1_vm" {
 
 module "spoke2" {
   source          = "../../modules/base"
-  resource_group  = azurerm_resource_group.rg.name
+  resource_group  = azurerm_resource_group.rgspoke2.name
   prefix          = trimsuffix(local.spoke2_prefix, "-")
   env             = "prod"
   location        = local.spoke2_location
@@ -102,7 +102,7 @@ module "spoke2" {
 
 module "spoke2_vm" {
   source                = "../../modules/linux"
-  resource_group        = azurerm_resource_group.rg.name
+  resource_group        = azurerm_resource_group.rgspoke2.name
   prefix                = local.spoke2_prefix
   name                  = "vm"
   location              = local.spoke2_location
@@ -124,7 +124,7 @@ module "spoke2_vm" {
 
 module "spoke3" {
   source          = "../../modules/base"
-  resource_group  = azurerm_resource_group.rg.name
+  resource_group  = azurerm_resource_group.rgspoke3.name
   prefix          = trimsuffix(local.spoke3_prefix, "-")
   env             = "prod"
   location        = local.spoke3_location
@@ -158,7 +158,7 @@ module "spoke3" {
 
 module "spoke3_vm" {
   source                = "../../modules/linux"
-  resource_group        = azurerm_resource_group.rg.name
+  resource_group        = azurerm_resource_group.rgspoke3.name
   prefix                = local.spoke3_prefix
   name                  = "vm"
   location              = local.spoke3_location
